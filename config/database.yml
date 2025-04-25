@@ -1,0 +1,37 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: postgres
+  password: password0000
+  host: localhost
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+
+
+development:
+  <<: *default
+  database: shop_api2_development
+
+
+test:
+  <<: *default
+  database: shop_api2_test
+
+production:
+  primary: &primary_production
+    <<: *default
+    database: shop_api2_production
+    username: shop_api2
+    password: <%= ENV["SHOP_API_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: shop_api2_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: shop_ap2i_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: shop_api2_production_cable
+    migrations_paths: db/cable_migrate
