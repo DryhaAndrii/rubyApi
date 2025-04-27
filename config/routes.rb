@@ -17,6 +17,12 @@ devise_scope :user do
   post '/signup', to: 'registrations#create'
 end
 
+namespace :api do
+  namespace :v1 do
+    get 'validate_token', to: 'auth#validate_token'
+  end
+end
+
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
 
