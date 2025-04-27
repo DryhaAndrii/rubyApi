@@ -1,5 +1,11 @@
 source "https://rubygems.org"
 
+gem 'devise'
+gem 'devise-jwt' # для JWT-аутентификации
+gem 'rack-cors'  # для CORS (чтобы React мог обращаться к API)
+
+gem 'dotenv-rails', groups: [:development, :test]
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.2"
 # Use postgresql as the database for Active Record
