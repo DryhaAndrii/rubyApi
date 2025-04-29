@@ -4,7 +4,11 @@ class Api::V1::ItemsController < ApplicationController
   before_action :set_item, only: [:update] # Находим товар перед обновлением
   # GET /api/v1/items
   def index
-    @items = Item.all
+    page = params[:page].to_i > 0 ? params[:page].to_i : 1
+    per_page = params[:per_page].to_i > 0 ? params[:per_page].to_i : 10
+    offset = (page - 1) * per_page
+  
+    @items = Item.offset(offset).limit(per_page)
     render json: @items
   end
 
