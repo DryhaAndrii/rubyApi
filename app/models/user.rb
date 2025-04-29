@@ -16,4 +16,11 @@ class User < ApplicationRecord
           
           JWT.encode(payload, secret_key, 'HS256')
         end
+
+
+        has_many :orders
+
+        def admin?
+          role == 'admin'
+        end
 end
