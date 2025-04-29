@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_PASSWORD: password0000
+      POSTGRES_DB: shop_api2_development
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://postgres:password0000@db:5432/shop_api2_development
+      RAILS_ENV: development
+      JWT_SECRET_KEY: your_jwt_secret
+      CLIENT_URL: http://localhost:5173
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+
+volumes:
+  postgres_data:
