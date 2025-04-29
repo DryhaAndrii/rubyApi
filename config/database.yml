@@ -1,37 +1,35 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: postgres
-  password: password0000
-  host: localhost
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: <%= ENV['DATABASE_PORT'] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
-
 
 development:
   <<: *default
-  database: shop_api2_development
-
+  database: <%= ENV['DATABASE_NAME'] %>_development
 
 test:
   <<: *default
-  database: shop_api2_test
+  database: <%= ENV['DATABASE_NAME'] %>_test
 
 production:
   primary: &primary_production
     <<: *default
-    database: shop_api2_production
-    username: shop_api2
-    password: <%= ENV["SHOP_API_DATABASE_PASSWORD"] %>
+    database: <%= ENV['DATABASE_NAME'] %>_production
+    username: <%= ENV['DATABASE_USERNAME'] %>
+    password: <%= ENV['SHOP_API_DATABASE_PASSWORD'] %>
   cache:
     <<: *primary_production
-    database: shop_api2_production_cache
+    database: <%= ENV['DATABASE_NAME'] %>_production_cache
     migrations_paths: db/cache_migrate
   queue:
     <<: *primary_production
-    database: shop_ap2i_production_queue
+    database: <%= ENV['DATABASE_NAME'] %>_production_queue
     migrations_paths: db/queue_migrate
   cable:
     <<: *primary_production
-    database: shop_api2_production_cable
+    database: <%= ENV['DATABASE_NAME'] %>_production_cable
     migrations_paths: db/cable_migrate
