@@ -28,7 +28,13 @@ Rails.application.routes.draw do
       end
 
       # Заказы
-      resources :orders, only: [:create]
+      resources :orders, only: [:index, :create]
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :users, only: [:index, :show, :update, :destroy]
     end
   end
 end
