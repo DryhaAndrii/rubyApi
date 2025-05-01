@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       get 'validate_token', to: 'auth#validate_token'
 
       # Товары
-      resources :items, only: [:index, :create, :update] do
+      resources :items, only: [:index, :create, :update,:destroy] do
         collection do
           get :search  # Поиск товаров (GET /api/v1/items/search)
         end

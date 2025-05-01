@@ -8,7 +8,7 @@ class Api::V1::ItemsController < ApplicationController
     per_page = params[:per_page].to_i > 0 ? params[:per_page].to_i : 10
     offset = (page - 1) * per_page
   
-    @items = Item.offset(offset).limit(per_page)
+    @items = Item.where(deleted: [false, nil]).offset(offset).limit(per_page)
     render json: @items
   end
 
@@ -36,6 +36,13 @@ class Api::V1::ItemsController < ApplicationController
     else
       render json: { errors: @item.errors }, status: :unprocessable_entity
     end
+  end
+
+  # DELETE /api/v1/items/:id
+  def destroy
+    @item = Item.find(params[:id])
+    @item.update(deleted: true)
+    render json: { message: 'Item marked as deleted' }
   end
 
   private
