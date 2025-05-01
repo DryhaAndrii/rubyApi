@@ -3,6 +3,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+   # Скрываем удалённых по умолчанию
+   default_scope { where(deleted_at: nil) }
+
+   # Чтобы явно получить всех, включая удалённых
+   scope :with_deleted, -> { unscope(where: :deleted_at) }
 
          def generate_jwt_token
           # Используем секрет из credentials или ENV
@@ -23,4 +28,18 @@ class User < ApplicationRecord
         def admin?
           role == 'admin'
         end
+
+  # Мягкое удаление
+  def soft_delete
+    update(deleted_at: Time.current)
+  end
+
+  # Восстановление пользователя
+  def restore
+    update(deleted_at: nil)
+  end
+
+  def deleted?
+    deleted_at.present?
+  end
 end

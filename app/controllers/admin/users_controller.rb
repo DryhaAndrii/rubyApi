@@ -2,6 +2,15 @@ class Admin::UsersController < ApplicationController
     before_action :authenticate_user!
     before_action :authorize_admin!
 
+    def destroy
+      user = User.with_deleted.find(params[:id]) # чтобы найти и удалённых тоже
+      if user.soft_delete
+        render json: { status: 200, message: 'User marked as deleted' }
+      else
+        render json: { status: 422, message: 'Failed to mark user as deleted', errors: user.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
+
      # GET /admin/users
   def index
     users = User.all

@@ -24,8 +24,12 @@ module Api
         end
   
         def destroy
-          @user.destroy
-          render json: { message: 'User deleted successfully' }
+          user = User.with_deleted.find(params[:id]) # чтобы найти и удалённых тоже
+          if user.soft_delete
+            render json: { status: 200, message: 'User marked as deleted' }
+          else
+            render json: { status: 422, message: 'Failed to mark user as deleted', errors: user.errors.full_messages }, status: :unprocessable_entity
+          end
         end
   
         private
