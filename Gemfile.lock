@@ -183,7 +183,7 @@ benchmark (0.4.1)
     parser (3.3.8.0)
       ast (~> 2.4.1)
       racc
-    pg (1.5.9)
+    pg (1.6.2-x86_64-linux)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -191,7 +191,7 @@ benchmark (0.4.1)
     psych (5.2.6)
       date
       stringio
-    puma (6.6.0)
+    puma (7.0.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
@@ -300,8 +300,8 @@ benchmark (0.4.1)
       net-ssh (>= 2.8.0)
       ostruct
     stringio (3.1.7)
-    thor (1.4.0)
-    thruster (0.1.13-x86_64-linux)
+ thor (1.4.0)
+    thruster (0.1.15-x86_64-linux)
     timeout (0.4.3)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -334,7 +334,7 @@ DEPENDENCIES
   devise-jwt
   dotenv-rails
   kamal
-  pg (~> 1.1)
+  pg (~> 1.6)
   puma (>= 5.0)
   rack-cors
   rails (~> 8.0.2)
