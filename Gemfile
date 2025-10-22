@@ -8,7 +8,7 @@ gem 'devise-jwt' # для JWT-аутентификации
 gem 'rack-cors'  # для CORS (чтобы React мог обращаться к API)
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.2"
+gem "rails", "~> 8.1.0"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.6"
 # Use the Puma web server [https://github.com/puma/puma]
